@@ -68,6 +68,7 @@ describe('FlightSearchComponent', () => {
     });
 
    it('should load flight for from and to', () => { 
+        // SpyOn vor dem Erzeugen der Komponenten aufrufen!
         spyOn(flightServiceMock, 'find').and.callThrough();
 
         let fixture = TestBed.createComponent(FlightSearchComponent);
@@ -76,8 +77,6 @@ describe('FlightSearchComponent', () => {
         comp.from = 'Hamburg';
         comp.to = 'Graz';
 
-        
-
         comp.search();
 
         expect(comp.flights.length).toBe(2);
@@ -85,18 +84,19 @@ describe('FlightSearchComponent', () => {
   });
 
    it('should not load flights without from and to', () => { 
-	    let fixture = TestBed.createComponent(FlightSearchComponent);
+	    // SpyOn vor dem Erzeugen der Komponenten aufrufen!
+        spyOn(flightServiceMock, 'find').and.callThrough();
+
+        let fixture = TestBed.createComponent(FlightSearchComponent);
         let comp = fixture.componentInstance;
-  
+
         comp.from = '';
         comp.to = '';
-
-        //spyOn(flightServiceMock, 'find').and.callThrough();
 
         comp.search();
 
         expect(comp.flights.length).toBe(0);
-        //expect(flightServiceMock.find).not.toHaveBeenCalled();
+        expect(flightServiceMock.find).not.toHaveBeenCalled();
   }
   ); 
 

@@ -12,7 +12,7 @@ export class FlightSearchComponent implements OnInit {
     
     //private http: Http;
 
-    constructor(private flightService: FlightService) { 
+    constructor(public flightService: FlightService) { 
         console.debug('Liebesgrüße aus dem Konstruktor');
     }
 
