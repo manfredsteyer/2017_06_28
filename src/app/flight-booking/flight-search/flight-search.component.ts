@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Flight } from "app/entities/flight";
+import { Flight } from 'app/entities/flight';
 import { URLSearchParams, Headers, Http } from '@angular/http';
-import { FlightService } from "./flight.service";
+import { FlightService } from './flight.service';
 
 @Component({
     selector: 'flight-search',
@@ -32,6 +32,8 @@ export class FlightSearchComponent implements OnInit {
     }
 
     search(): void {
+
+        if (!this.from || !this.to) return;
 
         this.flightService
             .find(this.from, this.to)
