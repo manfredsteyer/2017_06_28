@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Flight } from "app/entities/flight";
 import { URLSearchParams, Headers, Http } from '@angular/http';
+import { FlightService } from "app/flight-search/flight.service";
 
 @Component({
     selector: 'flight-search',
-    templateUrl: './flight-search.component.html'
+    templateUrl: './flight-search.component.html',
+    providers: [FlightService]
 })
 export class FlightSearchComponent implements OnInit {
     
     //private http: Http;
 
-    constructor(private http: Http) { 
-        // this.http = http;
+    constructor(private flightService: FlightService) { 
+        console.debug('Liebesgrüße aus dem Konstruktor');
     }
 
     from: string;
@@ -24,21 +26,15 @@ export class FlightSearchComponent implements OnInit {
     }
 
     search(): void {
-        let url = 'http://www.angular.at/api/flight';
 
-        let headers = new Headers();
-        headers.set('Accept', 'application/json');
-
-        let search = new URLSearchParams();
-        search.set('from', this.from);
-        search.set('to', this.to);
-
-        this
-            .http
-            .get(url, { headers, search })
+        this.flightService
+            .find(this.from, this.to)
             .subscribe(
-                (response) => { 
-                    this.flights = response.json();
+                (flights: Array<Flight>) => { 
+                    this.flights = flights;
+
+                    // Array<Flight> === Flight[]
+
                  },
                 (errResponse) => { 
                     console.error('Fehler beim Laden', errResponse);

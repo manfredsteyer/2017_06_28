@@ -24,7 +24,7 @@
 <div class="card">
 <table *ngIf="flights.length > 0" class="table table-contensed">
 
-    <tr *ngFor="let f of flights">
+    <tr *ngFor="let f of flights" [ngClass]="{ 'active': f == selectedFlight }">
         <td>{{ f.id }}</td>
         <td>{{ f.from }} </td>
         <td>{{ f.to }} </td>
