@@ -25,7 +25,7 @@ let flightServiceMock = {
                 to: 'Kognito',
                 date: '2017-12-24T17:30+01:00'
             }
-        ])
+        ]);
     }
 }
 
@@ -63,6 +63,11 @@ describe('FlightSearchComponent', () => {
 
     it('should have no loaded flights initially', () => { 
 	    let fixture = TestBed.createComponent(FlightSearchComponent);
+        
+        // fixture.nativeElement // Natives DOM-Element
+        // fixture.debugElement // Wrapper für DOM-Element
+        // fixture.debugElement.queryAll()
+
         let comp = fixture.componentInstance;
         expect(comp.flights.length).toBe(0);
     });
@@ -84,7 +89,8 @@ describe('FlightSearchComponent', () => {
   });
 
    it('should not load flights without from and to', () => { 
-	    // SpyOn vor dem Erzeugen der Komponenten aufrufen!
+	    
+        // SpyOn vor dem Erzeugen der Komponenten aufrufen!
         spyOn(flightServiceMock, 'find').and.callThrough();
 
         let fixture = TestBed.createComponent(FlightSearchComponent);

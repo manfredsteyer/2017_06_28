@@ -1,15 +1,37 @@
 <h1>Flight Search</h1>
 <div class="row card">
 
-
+<form #f="ngForm">
 <div class="control-group">
     <label>From:</label>
-    <input [(ngModel)]="from" class="form-control">
+    <input 
+        required
+        minlength="3"
+        maxlength="50"
+        pattern="\w+"
+        city="Nürnberg,Hamburg,Frankfurt,Wien,Graz,Zürich,Berlin"
+        [(ngModel)]="from" 
+        name="from" 
+        class="form-control">
+
+    <div *ngIf="!f?.controls?.from?.valid && f?.controls?.from?.dirty ">
+        ...Error...
+        <pre>{{ f?.controls?.from?.errors | json }}</pre>
+    </div>
+    <div *ngIf="f?.controls?.from?.hasError('required') && f?.controls?.from?.dirty">...Required...</div>
+    <div *ngIf="f?.controls?.from?.hasError('minlength')">...Min...</div>
+    <div *ngIf="f?.controls?.from?.hasError('city')">...City...</div>
+    <div *ngIf="f?.controls?.from?.hasError('maxlength')">...Max...</div>
+    <div *ngIf="f?.controls?.from?.hasError('pattern')">...Pattern...</div>
+
+<!--
+    <show-validation-error [error]="f?.controls?.from?.errors"></show-validation-error>
+-->
 </div>
 
 <div class="control-group">
     <label>To:</label>
-    <input [(ngModel)]="to" class="form-control">
+    <input [(ngModel)]="to" name="to" class="form-control">
 </div>
 
 <div class="control-group">
@@ -19,6 +41,9 @@
         (click)="search()" [disabled]="!from || !to">Search</button>
 
 </div>
+
+</form>
+
 </div>
 
 <div class="row">

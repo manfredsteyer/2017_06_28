@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Flight } from 'app/entities/flight';
 import { URLSearchParams, Headers, Http } from '@angular/http';
 import { FlightService } from './flight.service';
@@ -6,6 +6,8 @@ import { FlightService } from './flight.service';
 @Component({
     selector: 'flight-search',
     templateUrl: './flight-search.component.html',
+    styleUrls: ['./flight-search.component.css'],
+    //encapsulation: ViewEncapsulation.None,
     providers: [FlightService]
 })
 export class FlightSearchComponent implements OnInit {
